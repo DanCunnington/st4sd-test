@@ -26,13 +26,8 @@ components:
   command:
     executable: "bin/run.py"
   resourceManager:
-    config:
-      backend: "%(backend)s"
-    kubernetes:
-      # if you're just using python, you can use the base image of the st4sd orchestrator
-      # so that you don't have to think about creating imagePullSecrets etc
-      # quay.io/st4sd/official-base/st4sd-runtime-core
-      image: quay.io/st4sd/official-base/st4sd-runtime-core
+      config:
+        backend: local
 platforms:
   - default
   - openshift
