@@ -41,7 +41,6 @@ resourceManager:
     # quay.io/st4sd/official-base/st4sd-runtime-core
     image: quay.io/st4sd/official-base/st4sd-runtime-core
 platforms:
-  - default
   - openshift
 
 version: 1.0.0
