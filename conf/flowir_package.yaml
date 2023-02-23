@@ -1,0 +1,31 @@
+blueprint:
+  openshift:
+    global:
+      resourceManager:
+        config:
+          walltime: 14400.0
+          backend: kubernetes
+          
+environments:
+  default:
+    # Defining 'default.environment' here sets the default env a job uses. If this wasn't defined, the job would use the
+    # same env as the Flow process (ie: the same as elaunch.py)
+    environment:
+      DEFAULTS: PATH:LD_LIBRARY_PATH
+      PATH: $PATH
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH
+
+  openshift:
+    environment:
+      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+components:
+- name: hi
+  stage: 0
+  command:
+    executable: "bin/run.py"
+
+platforms:
+  - openshift
+
+version: 1.0.0

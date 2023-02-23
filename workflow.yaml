@@ -1,0 +1,19 @@
+---
+kind: Workflow
+apiVersion: hpsys.ie.ibm.com/v1alpha1
+metadata:
+  name: dan-st4sd-test-experiment
+spec:
+  package:
+    url: https://github.com/dancunnington/st4sd-test.git
+    branch: main
+  additionalOptions:
+    - "-l15"
+    - "--useMemoization=true"
+    - "--registerWorkflow=true"
+    - "--discovererMonitorDir=/tmp/workdir/pod-reporter/update-files"
+  resources:
+    elaunchPrimary:
+      cpu: 1.0
+      memory: 2Gi
+
