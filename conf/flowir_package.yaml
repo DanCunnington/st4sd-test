@@ -10,16 +10,23 @@ blueprint:
   openshift:
     global:
       resourceManager:
-        kubernetes:
-          cpuUnitsPerCore: 1.0
         config:
           walltime: 14400.0
-          backend: kubernetes
-
+          
+environments:
+  default:
+    # Defining 'default.environment' here sets the default env a job uses. 
+    # If this wasn't defined, the job would use the
+    # same env as the Flow process (ie: the same as elaunch.py)
+    environment:
+      DEFAULTS: PATH:LD_LIBRARY_PATH
+      PATH: $PATH
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH
   openshift:
     environment:
       PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
+      
+      
 components:
 - name: hi
   stage: 0
@@ -27,7 +34,12 @@ components:
     executable: "bin/run.py"
   resourceManager:
       config:
-        backend: local
+        backend: "%(backend)s"
+      kubernetes:
+        # if you're just using python, you can use the base image of the st4sd orchestrator
+        # so that you don't have to think about creating imagePullSecrets etc
+        # quay.io/st4sd/official-base/st4sd-runtime-core
+        image: quay.io/st4sd/official-base/st4sd-runtime-core
 platforms:
   - default
   - openshift
